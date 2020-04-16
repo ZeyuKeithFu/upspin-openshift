@@ -1,8 +1,9 @@
 FROM golang:alpine as build
 
-RUN apk add --no-cache git \
-    && go get -d upspin.io/cmd/... \
-    && go install upspin.io/cmd/...
+RUN apk add --no-cache git
+WORKDIR /go/src
+RUN go get -d upspin.io/cmd/... \
+    && go install upspin.io/cmd/upspinserver
 
 FROM alpine
 RUN apk add ca-certificates
