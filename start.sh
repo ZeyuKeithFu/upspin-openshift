@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 set -e
 
-exec & /upspin/upspinserver -insecure true
+exec & /usr/upspin/upspinserver -insecure true

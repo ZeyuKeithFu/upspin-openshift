@@ -14,9 +14,9 @@ WORKDIR /usr/upspin
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
 
-VOLUME "/upspin/data"
-VOLUME "/upspin/letsencrypt"
+VOLUME "/usr/upspin/data"
+VOLUME "/usr/upspin/letsencrypt"
 
 EXPOSE 80
 
-ENTRYPOINT [ "sh", "/upspin/start.sh" ]
+ENTRYPOINT [ "sh", "/usr/upspin/start.sh" ]
