@@ -9,7 +9,7 @@ FROM alpine
 RUN apk add ca-certificates
 LABEL maintainer="zeyufu@bu.edu"
 
-WORKDIR /upspin
+WORKDIR /usr/upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
@@ -18,6 +18,5 @@ VOLUME "/upspin/data"
 VOLUME "/upspin/letsencrypt"
 
 EXPOSE 80
-EXPOSE 443
 
 ENTRYPOINT [ "sh", "/upspin/start.sh" ]
