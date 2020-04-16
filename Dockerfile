@@ -3,7 +3,7 @@ FROM golang:alpine as build
 RUN apk add --no-cache git
 WORKDIR /go/src
 RUN go get -d upspin.io/cmd/... \
-    && go install upspin.io/cmd/upspinserver
+    && go install upspin.io/cmd/...
 
 FROM alpine
 RUN apk add ca-certificates
