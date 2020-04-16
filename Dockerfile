@@ -19,4 +19,4 @@ VOLUME "/upspin/letsencrypt"
 
 EXPOSE 80
 
-ENTRYPOINT [ "sh", "/usr/upspin/start.sh" ]
+ENTRYPOINT [ "sh", "/upspin/start.sh" ]
