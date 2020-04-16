@@ -9,13 +9,13 @@ FROM alpine
 RUN apk add ca-certificates
 LABEL maintainer="zeyufu@bu.edu"
 
-WORKDIR /usr/upspin
+WORKDIR /upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
 
-VOLUME "/usr/upspin/data"
-VOLUME "/usr/upspin/letsencrypt"
+VOLUME "/upspin/data"
+VOLUME "/upspin/letsencrypt"
 
 EXPOSE 80
 
