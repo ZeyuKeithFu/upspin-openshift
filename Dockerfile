@@ -15,8 +15,8 @@ COPY --from=build /go/bin/* ./
 ADD start.sh ./
 
 VOLUME "/upspin/data"
-VOLUME "/upspin/letsencrypt"
 
 EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT [ "sh", "/upspin/start.sh" ]

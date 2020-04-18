@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 set -e
 
-exec & /upspin/upspinserver -insecure -http :80
+exec & /upspin/upspinserver -https :443
