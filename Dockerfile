@@ -18,15 +18,16 @@ RUN mkdir cert
 
 RUN openssl genrsa -out cert/rootCA.key 4096
 RUN openssl req -x509 -new -nodes -key cert/rootCA.key \
-    -sha256 -days 1024 -subj "/C=US/ST=MA/O=BU/CN=upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud" -out cert/rootCA.crt
-RUN openssl genrsa -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.key 2048
+    -sha256 -days 1024 -subj "/C=US/ST=MA/O=BU/CN=upspin.k-apps.osh.massopen.cloud" \
+    -out cert/rootCA.pem
+RUN openssl genrsa -out cert/server.key 2048
 RUN openssl req -new -sha256 \
-    -key cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.key \
-    -subj "/C=US/ST=MA/O=BU/CN=upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud" \
-    -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.csr
-RUN openssl x509 -req -in cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.csr \
-    -CA cert/rootCA.crt -CAkey cert/rootCA.key -CAcreateserial \
-    -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud \
+    -key cert/server.key \
+    -subj "/C=US/ST=MA/O=BU/CN=upspin.k-apps.osh.massopen.cloud" \
+    -out cert/server.csr
+RUN openssl x509 -req -in cert/server.csr \
+    -CA cert/rootCA.pem -CAkey cert/rootCA.key -CAcreateserial \
+    -out cert/server.pem \
     -days 500 -sha256
 
 VOLUME "/upspin/data"
