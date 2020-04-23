@@ -26,7 +26,7 @@ RUN openssl req -new -sha256 \
     -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.csr
 RUN openssl x509 -req -in cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.csr \
     -CA cert/rootCA.crt -CAkey cert/rootCA.key -CAcreateserial \
-    -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.crt \
+    -out cert/upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud \
     -days 500 -sha256
 
 VOLUME "/upspin/data"
