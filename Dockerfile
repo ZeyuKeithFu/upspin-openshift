@@ -14,8 +14,10 @@ WORKDIR /upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
+RUN mkdir letsencrypt
 
-RUN mkdir letsencrypt && cd letsencrypt
+WORKDIR letsencrypt
+
 RUN openssl genrsa -out rootCA.key 4096
 RUN openssl req -x509 -new -nodes -key rootCA.key \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=BU" -out rootCA.crt
