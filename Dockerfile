@@ -7,6 +7,7 @@ RUN go get -d upspin.io/cmd/... \
 
 FROM alpine
 RUN apk add ca-certificates
+RUN apt-get -y install openssl
 LABEL maintainer="zeyufu@bu.edu"
 
 WORKDIR /upspin
@@ -14,8 +15,7 @@ WORKDIR /upspin
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
 
-WORKDIR /upspin/letsencrypt
-RUN apt-get -y install openssl
+WORKDIR ./letsencrypt
 RUN openssl genrsa -out rootCA.key 4096
 RUN openssl req -x509 -new -nodes -key rootCA.key \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=BU" -out rootCA.crt
