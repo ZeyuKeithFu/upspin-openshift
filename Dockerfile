@@ -19,6 +19,7 @@ RUN mkdir letsencrypt && cd letsencrypt
 RUN openssl genrsa -out rootCA.key 4096
 RUN openssl req -x509 -new -nodes -key rootCA.key \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=BU" -out rootCA.crt
+RUN openssl genrsa -out upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.key 2048
 RUN openssl req -new -sha256 \
     -key upspin-openshift-infrastructure-as-code.k-apps.osh.massopen.cloud.key \
     -subj "/C=US/ST=MA/O=BU" \
