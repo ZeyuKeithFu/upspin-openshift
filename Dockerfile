@@ -7,7 +7,7 @@ RUN go get -d upspin.io/cmd/... \
 
 FROM alpine
 RUN apk add ca-certificates
-RUN apt-get -y install openssl
+RUN apt add openssl
 LABEL maintainer="zeyufu@bu.edu"
 
 WORKDIR /upspin
