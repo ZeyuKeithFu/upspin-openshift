@@ -16,6 +16,7 @@ COPY --from=build /go/bin/* ./
 ADD start.sh ./
 RUN mkdir cert
 
+RUN chmod 555 cert
 RUN openssl genrsa -out cert/rootCA.key 4096
 RUN openssl req -x509 -new -nodes -key cert/rootCA.key \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=Iac/CN=IaC_Root_CA" \
