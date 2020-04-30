@@ -17,18 +17,18 @@ ADD start.sh ./
 RUN mkdir cert
 
 RUN chmod 555 cert
-RUN openssl genrsa -out cert/rootCA.key 4096
-RUN openssl req -x509 -new -nodes -key cert/rootCA.key \
-    -sha256 -days 1024 -subj "/C=US/ST=MA/O=Iac/CN=IaC_Root_CA" \
-    -out cert/rootCA.crt
-RUN openssl genrsa -out cert/server.key 2048
+RUN openssl genrsa -out cert/rootCA.key.pem 4096
+RUN openssl req -x509 -new -nodes -key cert/rootCA.key.pem \
+    -sha256 -days 1024 -subj "/C=US/ST=MA/O=IaC/CN=IaC_Root_CA" \
+    -out cert/rootCA.crt.pem
+RUN openssl genrsa -out cert/server.key.pem 2048
 RUN openssl req -new -sha256 \
-    -key cert/server.key \
-    -subj "/C=US/ST=MA/O=Iac/CN=upspin.k-apps.osh.massopen.cloud" \
-    -out cert/server.csr
-RUN openssl x509 -req -in cert/server.csr \
-    -CA cert/rootCA.crt -CAkey cert/rootCA.key -CAcreateserial \
-    -out cert/server.crt \
+    -key cert/server.key.pem \
+    -subj "/C=US/ST=MA/O=IaC/CN=upspin.k-apps.osh.massopen.cloud" \
+    -out cert/server.csr.pem
+RUN openssl x509 -req -in cert/server.csr.pem \
+    -CA cert/rootCA.crt.pem -CAkey cert/rootCA.key.pem -CAcreateserial \
+    -out cert/server.crt.pem \
     -days 500 -sha256
 
 VOLUME "/upspin/data"
