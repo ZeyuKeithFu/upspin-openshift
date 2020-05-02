@@ -31,7 +31,7 @@ RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr \
     -days 500 -sha256
 RUN openssl x509 -in cert/upspin.k-apps.osh.massopen.cloud.crt -out cert/upspin.k-apps.osh.massopen.cloud.crt.pem -outform PEM
 RUN openssl rsa -in cert/upspin.k-apps.osh.massopen.cloud.key -out cert/upspin.k-apps.osh.massopen.cloud.key.pem -outform PEM
-RUN chmod 600 cert/*
+RUN chmod go+x cert/*
 
 VOLUME "/upspin/data"
 VOLUME "/upspin/cert"
