@@ -11,7 +11,7 @@ RUN apk add ca-certificates \
     && apk add useradd
 LABEL maintainer="zeyufu@bu.edu"
 
-RUN useradd -ms /bin/bash upspin
+RUN adduser -D upspin
 USER upspin
 WORKDIR /home/upspin
 
