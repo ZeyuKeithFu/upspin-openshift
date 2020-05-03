@@ -10,7 +10,9 @@ RUN apk add ca-certificates
 RUN apk add openssl
 LABEL maintainer="zeyufu@bu.edu"
 
-WORKDIR /upspin
+RUN useradd -ms /bin/bash upspin
+USER upspin
+WORKDIR /home/upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
