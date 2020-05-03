@@ -15,13 +15,14 @@ WORKDIR /upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
-USER root
 RUN mkdir cert
 
 RUN openssl genrsa -out cert/rootCA.key.pem 4096
 RUN openssl req -x509 -new -nodes -key cert/rootCA.key.pem \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=IaC/CN=IaC_Root_CA" \
     -out /etc/ssl/certs/rootCA.crt.pem
+RUN ln -s /etc/ssl/certs/rootCA.crt.pem `openssl x509 -hash -noout -in /etc/ssl/certs/rootCA.crt.pem`.0
+RUN openssl verify -CApath /etc/ssl/certs /etc/ssl/certs/rootCA.crt.pem
 RUN openssl genrsa -out cert/server.key.pem 2048
 RUN openssl req -new -sha256 \
     -key cert/server.key.pem \
