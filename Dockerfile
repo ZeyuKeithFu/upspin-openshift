@@ -17,18 +17,18 @@ COPY --from=build /go/bin/* ./
 ADD start.sh ./
 RUN mkdir cert
 
-RUN openssl genrsa -out cert/rootCA.key 4096
-RUN openssl req -x509 -new -nodes -key cert/rootCA.key \
+RUN openssl genrsa -out cert/rootCA.key.pem 4096
+RUN openssl req -x509 -new -nodes -key cert/rootCA.key.pem \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=IaC/CN=IaC_Root_CA" \
-    -out cert/rootCA.crt
-RUN openssl genrsa -out cert/upspin.k-apps.osh.massopen.cloud.key 2048
+    -out cert/rootCA.crt.pem
+RUN openssl genrsa -out cert/upspin.k-apps.osh.massopen.cloud.key.pem 2048
 RUN openssl req -new -sha256 \
-    -key cert/upspin.k-apps.osh.massopen.cloud.key \
+    -key cert/upspin.k-apps.osh.massopen.cloud.key.pem \
     -subj "/C=US/ST=MA/O=IaC/CN=upspin.k-apps.osh.massopen.cloud" \
-    -out cert/upspin.k-apps.osh.massopen.cloud.csr
-RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr \
-    -CA cert/rootCA.crt -CAkey cert/rootCA.key -CAcreateserial \
-    -out cert/upspin.k-apps.osh.massopen.cloud.crt \
+    -out cert/upspin.k-apps.osh.massopen.cloud.csr.pem
+RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr.pem \
+    -CA cert/rootCA.crt.pem -CAkey cert/rootCA.key.pem -CAcreateserial \
+    -out cert/upspin.k-apps.osh.massopen.cloud.crt.pem \
     -days 500 -sha256
 RUN chmod 0644 cert/*
 RUN setcap cap_net_bind_service=+ep upspinserver
