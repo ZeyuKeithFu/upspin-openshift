@@ -11,7 +11,7 @@ RUN apk add ca-certificates \
     && apk add libcap
 LABEL maintainer="zeyufu@bu.edu"
 
-WORKDIR /home/upspin
+WORKDIR /upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
@@ -34,10 +34,10 @@ RUN cat cert/server.crt.pem cert/rootCA.crt.pem > cert/upspin.k-apps.osh.massope
 RUN chmod 0644 cert/*
 RUN setcap cap_net_bind_service=+ep upspinserver
 
-VOLUME "/home/upspin/data"
-VOLUME "/home/upspin/cert"
+VOLUME "/upspin/data"
+VOLUME "/upspin/cert"
 
 EXPOSE 80
 EXPOSE 443
 
-ENTRYPOINT [ "sh", "/home/upspin/start.sh" ]
+ENTRYPOINT [ "sh", "/upspin/start.sh" ]
