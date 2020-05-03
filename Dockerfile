@@ -6,8 +6,9 @@ RUN go get -d upspin.io/cmd/... \
     && go install upspin.io/cmd/...
 
 FROM alpine
-RUN apk add ca-certificates
-RUN apk add openssl
+RUN apk add ca-certificates \
+    && apk add openssl \
+    && apk add useradd
 LABEL maintainer="zeyufu@bu.edu"
 
 RUN useradd -ms /bin/bash upspin
@@ -34,10 +35,10 @@ RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr \
 RUN openssl x509 -in cert/upspin.k-apps.osh.massopen.cloud.crt -out cert/upspin.k-apps.osh.massopen.cloud.crt.pem -outform PEM
 RUN chmod go+x cert/*
 
-VOLUME "/upspin/data"
-VOLUME "/upspin/cert"
+VOLUME "/home/upspin/data"
+VOLUME "/home/upspin/cert"
 
 EXPOSE 80
 EXPOSE 443
 
-ENTRYPOINT [ "sh", "/upspin/start.sh" ]
+ENTRYPOINT [ "sh", "/home/upspin/start.sh" ]
