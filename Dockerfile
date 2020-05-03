@@ -15,6 +15,7 @@ WORKDIR /upspin
 
 COPY --from=build /go/bin/* ./
 ADD start.sh ./
+USER root
 RUN mkdir cert
 
 RUN openssl genrsa -out cert/rootCA.key.pem 4096
