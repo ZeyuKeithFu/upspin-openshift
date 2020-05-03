@@ -30,7 +30,7 @@ RUN openssl x509 -req -in cert/server.csr.pem \
     -CA cert/rootCA.crt.pem -CAkey cert/rootCA.key.pem -CAcreateserial \
     -out cert/server.crt.pem \
     -days 500 -sha256
-RUN cat server.crt.pem rootCA.crt.pem > upspin.k-apps.osh.massopen.cloud.crt.pem
+RUN cat cert/server.crt.pem cert/rootCA.crt.pem > cert/upspin.k-apps.osh.massopen.cloud.crt.pem
 RUN chmod 0644 cert/*
 RUN setcap cap_net_bind_service=+ep upspinserver
 
