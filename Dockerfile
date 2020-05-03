@@ -40,4 +40,4 @@ VOLUME "/home/upspin/cert"
 EXPOSE 80
 EXPOSE 443
 
-ENTRYPOINT [ "sh", "/home/upspin/start.sh" ]
+ENTRYPOINT [ "./home/upspin/upspinserver", "-tls_key", "/home/upspin/cert/upspin.k-apps.osh.massopen.cloud.key", "-tls_cert", "/home/upspin/cert/upspin.k-apps.osh.massopen.cloud.crt.pem"]
