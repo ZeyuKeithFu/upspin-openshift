@@ -8,6 +8,7 @@ RUN go get -d upspin.io/cmd/... \
 FROM alpine
 RUN apk add ca-certificates \
     && apk add openssl
+    && apk add libcap
 LABEL maintainer="zeyufu@bu.edu"
 
 WORKDIR /home/upspin
