@@ -10,8 +10,6 @@ RUN apk add ca-certificates \
     && apk add openssl
 LABEL maintainer="zeyufu@bu.edu"
 
-RUN adduser -D upspin
-USER upspin
 WORKDIR /home/upspin
 
 COPY --from=build /go/bin/* ./
@@ -32,7 +30,7 @@ RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr \
     -out cert/upspin.k-apps.osh.massopen.cloud.crt \
     -days 500 -sha256
 RUN openssl x509 -in cert/upspin.k-apps.osh.massopen.cloud.crt -out cert/upspin.k-apps.osh.massopen.cloud.crt.pem -outform PEM
-RUN chmod go+x cert/*
+RUN chmod 0400 cert/*
 
 VOLUME "/home/upspin/data"
 VOLUME "/home/upspin/cert"
@@ -40,4 +38,4 @@ VOLUME "/home/upspin/cert"
 EXPOSE 80
 EXPOSE 443
 
-ENTRYPOINT [ "./home/upspin/upspinserver", "-tls_key", "/home/upspin/cert/upspin.k-apps.osh.massopen.cloud.key", "-tls_cert", "/home/upspin/cert/upspin.k-apps.osh.massopen.cloud.crt.pem"]
+ENTRYPOINT [ "sh", "/home/upspin/start.sh" ]
