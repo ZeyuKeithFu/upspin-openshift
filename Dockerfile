@@ -30,6 +30,7 @@ RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr \
     -out cert/upspin.k-apps.osh.massopen.cloud.crt \
     -days 500 -sha256
 RUN chmod 0644 cert/*
+RUN setcap cap_net_bind_service=+ep upspinserver
 
 VOLUME "/home/upspin/data"
 VOLUME "/home/upspin/cert"
