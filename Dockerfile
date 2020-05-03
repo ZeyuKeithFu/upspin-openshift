@@ -21,15 +21,16 @@ RUN openssl genrsa -out cert/rootCA.key.pem 4096
 RUN openssl req -x509 -new -nodes -key cert/rootCA.key.pem \
     -sha256 -days 1024 -subj "/C=US/ST=MA/O=IaC/CN=IaC_Root_CA" \
     -out cert/rootCA.crt.pem
-RUN openssl genrsa -out cert/upspin.k-apps.osh.massopen.cloud.key.pem 2048
+RUN openssl genrsa -out cert/server.key.pem 2048
 RUN openssl req -new -sha256 \
-    -key cert/upspin.k-apps.osh.massopen.cloud.key.pem \
+    -key cert/server.key.pem \
     -subj "/C=US/ST=MA/O=IaC/CN=upspin.k-apps.osh.massopen.cloud" \
-    -out cert/upspin.k-apps.osh.massopen.cloud.csr.pem
-RUN openssl x509 -req -in cert/upspin.k-apps.osh.massopen.cloud.csr.pem \
+    -out cert/server.csr.pem
+RUN openssl x509 -req -in cert/server.csr.pem \
     -CA cert/rootCA.crt.pem -CAkey cert/rootCA.key.pem -CAcreateserial \
-    -out cert/upspin.k-apps.osh.massopen.cloud.crt.pem \
+    -out cert/server.crt.pem \
     -days 500 -sha256
+RUN cat server.crt.pem rootCA.crt.pem > upspin.k-apps.osh.massopen.cloud.crt.pem
 RUN chmod 0644 cert/*
 RUN setcap cap_net_bind_service=+ep upspinserver
 
