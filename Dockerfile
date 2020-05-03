@@ -7,8 +7,7 @@ RUN go get -d upspin.io/cmd/... \
 
 FROM alpine
 RUN apk add ca-certificates \
-    && apk add openssl \
-    && apk add useradd
+    && apk add openssl
 LABEL maintainer="zeyufu@bu.edu"
 
 RUN adduser -D upspin
